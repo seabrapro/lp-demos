@@ -272,8 +272,19 @@
     }
     const fa = $('#fAtacado'); if (fa) fa.onsubmit = e => { e.preventDefault(); const d = new FormData(fa); enviarWA(`Olá, Amicis! Quero o catálogo de atacado.\nNome: ${d.get('nome')}\nLoja/CNPJ: ${d.get('loja')}\nWhatsApp: ${d.get('zap')}\nCidade/UF: ${d.get('cidade')}\nProcuro: ${d.get('msg')}`); };
     const fc = $('#fContato'); if (fc) fc.onsubmit = e => { e.preventDefault(); const d = new FormData(fc); enviarWA(`Olá, Amicis! Sou ${d.get('nome')}.\nAssunto: ${d.get('assunto')}\n${d.get('msg')}`); };
-    const hv = $('#heroMedia video'); if (hv) hv.play().catch(() => { });
+    tocarVideos();
   }
+  /* iOS/WebKit: vídeo criado via innerHTML pode perder o muted → autoplay recusado → botão de play.
+     Força as propriedades, tenta tocar, e usa o primeiro gesto do usuário como destrava (Modo Pouca Energia). */
+  function tocarVideos() {
+    document.querySelectorAll('video').forEach(v => {
+      v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = true; v.autoplay = true;
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.removeAttribute('controls');
+      const p = v.play(); if (p && p.catch) p.catch(() => { });
+    });
+  }
+  ['touchstart', 'touchend', 'scroll', 'click'].forEach(ev => addEventListener(ev, tocarVideos, { passive: true }));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) tocarVideos(); });
   function enviarWA(msg) {
     if (L.whatsNumero) { window.open(`https://wa.me/${L.whatsNumero}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener'); return; }
     const abrir = () => window.open(L.whatsLink, '_blank', 'noopener');

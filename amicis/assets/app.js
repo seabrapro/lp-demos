@@ -30,13 +30,22 @@
     const linhas = sacola.map(i => { const p = prod(i.slug); return `• ${i.qtd}× ${p.nome} — ${L.cores[i.cor].nome} / ${i.tam} — ${brl(p.preco * i.qtd)}`; });
     return `Olá, Amicis! Quero fazer este pedido:\n${linhas.join('\n')}\nSubtotal: ${brl(subtotal())}\n\nNome:\nEndereço:`;
   }
+  /* WhatsApp com a mensagem já escrita. Com whatsNumero: cai direto na conversa da loja.
+     Sem número: wa.me/?text= abre o WhatsApp com o texto pronto e pede só para escolher o contato.
+     Tem que ser síncrono dentro do clique (Safari bloqueia window.open dentro de promise). */
+  function urlWA(msg) {
+    const t = encodeURIComponent(msg);
+    return L.whatsNumero ? `https://wa.me/${L.whatsNumero}?text=${t}` : `https://wa.me/?text=${t}`;
+  }
+  function abrirWA(msg) {
+    const url = urlWA(msg);
+    const w = window.open(url, '_blank', 'noopener');
+    if (!w) location.href = url;
+  }
   function checkout() {
     if (!sacola.length) return;
-    const msg = mensagemPedido();
-    if (L.whatsNumero) { window.open(`https://wa.me/${L.whatsNumero}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener'); return; }
-    const abrir = () => window.open(L.whatsLink, '_blank', 'noopener');
-    if (navigator.clipboard) navigator.clipboard.writeText(msg).then(() => { toast('Pedido copiado — cole na conversa do WhatsApp'); abrir(); }, abrir);
-    else abrir();
+    abrirWA(mensagemPedido());
+    toast('Abrindo o WhatsApp com o seu pedido…');
   }
 
   function renderSacola() {
@@ -285,11 +294,7 @@
   }
   ['touchstart', 'touchend', 'scroll', 'click'].forEach(ev => addEventListener(ev, tocarVideos, { passive: true }));
   document.addEventListener('visibilitychange', () => { if (!document.hidden) tocarVideos(); });
-  function enviarWA(msg) {
-    if (L.whatsNumero) { window.open(`https://wa.me/${L.whatsNumero}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener'); return; }
-    const abrir = () => window.open(L.whatsLink, '_blank', 'noopener');
-    if (navigator.clipboard) navigator.clipboard.writeText(msg).then(() => { toast('Mensagem copiada — cole na conversa'); abrir(); }, abrir); else abrir();
-  }
+  function enviarWA(msg) { abrirWA(msg); }
 
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
 

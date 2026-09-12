@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Amicis Fitness — Moda fitness com fabricação própria | Goiânia</title>
+<meta name="description" content="Conjuntos, leggings, tops e macacões com tecido premium e compressão perfeita, fabricação própria em Goiânia. Varejo e atacado.">
+<meta property="og:title" content="Amicis Fitness — Feita para acompanhar seu ritmo">
+<meta property="og:description" content="Tecido premium, compressão perfeita, fabricação própria. Do treino ao dia a dia.">
+<meta property="og:image" content="assets/img/hero-poster.jpg">
+<link rel="icon" href="assets/img/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="promo"><span>Frete grátis acima de R$ 399 para todo o Brasil</span><span>Atacado a partir de 12 peças</span></div>
+<header class="hdr" id="hdr">
+  <a class="mark" href="#/" aria-label="Amicis Fitness — início"><b>AMICIS</b><span>fitness</span></a>
+  <nav class="nav"><a href="#/loja">Loja</a><a href="#/loja?cat=conjuntos">Conjuntos</a><a href="#/loja?cat=leggings">Leggings</a><a href="#/sobre">A marca</a><a href="#/atacado">Atacado</a><a href="#/contato">Contato</a></nav>
+  <div class="hdr-r">
+    <button class="icb" id="abrirSacola" aria-label="Abrir sacola"><svg viewBox="0 0 24 24"><path d="M6 8h12l1 13H5L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span id="sacola-n" hidden>0</span></button>
+    <button class="icb" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <a class="mark" href="#/" aria-label="Amicis Fitness"><b>AMICIS</b><span>fitness</span></a>
+  <nav><a href="#/loja">Loja</a><a href="#/sobre">A marca</a><a href="#/atacado">Atacado</a><a href="#/contato">Contato</a><a href="https://www.instagram.com/amicisfitness/" target="_blank" rel="noopener">@amicisfitness</a></nav>
+  <span>Goiânia, GO · Fabricação própria · 2026</span>
+</footer>
+
+<div id="veu"></div>
+<aside id="sacola" aria-label="Sacola">
+  <div class="sk-h"><b>Sua sacola</b><button class="icb" id="fecharSacola" aria-label="Fechar sacola"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div id="sacola-itens"></div>
+  <div class="sk-f"><div id="frete"></div><div class="sub"><span>Subtotal</span><b id="sacola-sub">R$ 0,00</b></div>
+    <button class="btn" id="checkout" disabled>Finalizar no WhatsApp</button><small class="nota">Pagamento online em breve. O pedido vai pronto para a conversa da loja.</small></div>
+</aside>
+<div id="toast" role="status"></div>
+
+<script src="assets/products.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
